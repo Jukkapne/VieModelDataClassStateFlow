@@ -1,5 +1,6 @@
 package com.example.viemodeldataclassstateflow.ui.theme.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -12,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.NavController
 import com.example.viemodeldataclassstateflow.viewmodels.UserViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlin.math.log
 
 @Composable
 fun FirstScreen(navController: NavController, viewModel: UserViewModel = viewModel()) {
@@ -24,6 +26,7 @@ fun FirstScreen(navController: NavController, viewModel: UserViewModel = viewMod
         TextField(value = age, onValueChange = { age = it }, label = { Text("Ikä") })
         TextField(value = email, onValueChange = { email = it }, label = { Text("Sähköposti") })
         Button(onClick = {
+            Log.d("FirstScreen", "Tallennetaan käyttäjä: $name, $age, $email")
             viewModel.saveUser(name, age, email)
             navController.navigate("secondScreen")
         }) {

@@ -32,16 +32,20 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppContent() {
     val navController = rememberNavController()
+    // Käytetään viewModel() funktiota ilman parametreja. Tämä liittää ViewModelin automaattisesti
+    // nykyisen Activityn LifecycleOwneriin, jolloin saat jaettua ViewModelin koko sovelluksen laajuudessa.
+    val viewModel: UserViewModel = viewModel()
+
     NavHost(navController = navController, startDestination = "firstScreen") {
         composable("firstScreen") {
-            // Oletetaan, että FirstScreen ottaa viewModelin parametrina
-            // Tämä on yleinen käytäntö, jotta voitaisiin käyttää samaa ViewModel-instanssia useissa Composables
-            val viewModel: UserViewModel = viewModel()
+            // Välitä viewModel komponenteille. Tässä tapauksessa sama viewModel-instanssi välitetään,
+            // mikä tarkoittaa, että FirstScreen ja SecondScreen jakavat saman viewModelin.
             FirstScreen(navController = navController, viewModel = viewModel)
         }
         composable("secondScreen") {
-            val viewModel: UserViewModel = viewModel()
+            // Ei tarvetta luoda uutta viewModelia, koska haluamme käyttää samaa instanssia.
             SecondScreen(navController = navController, viewModel = viewModel)
         }
     }
 }
+

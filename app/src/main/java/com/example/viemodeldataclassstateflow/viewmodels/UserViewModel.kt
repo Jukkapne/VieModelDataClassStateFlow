@@ -1,5 +1,6 @@
 package com.example.viemodeldataclassstateflow.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.viemodeldataclassstateflow.model.User
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,5 +12,7 @@ class UserViewModel : ViewModel() {
 
     fun saveUser(name: String, age: String, email: String) {
         _userInfo.value = User(name, age, email)
+        Log.d("UserViewModel", "Tallennettu käyttäjä: $name, $age, $email")
     }
+
 }
